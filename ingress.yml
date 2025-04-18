@@ -11,6 +11,13 @@ spec:
   - host: www.aws9.pri
     http:
       paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: aws9-svc-portal    # 기본 페이지용 서비스
+            port:
+              number: 80
       - path: "/shop(/|$)"
         pathType: Prefix
         backend:
@@ -29,4 +36,3 @@ spec:
           service:
             name: aws9-svc-news
             port: { number: 80 }
-
