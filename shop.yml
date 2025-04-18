@@ -7,15 +7,24 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      color: blue    # (1)Pod 작성시 이 부분(label -> app: web)이 포함되어야 함
-  template:   # 여기에서 부터 Pod 작성
+      color: blue
+  template:
     metadata:
       labels:
-        color: blue  # 반드시 (1) 과 동일해야 함
+        color: blue
     spec:
       containers:
         - name: aws9ctn-shop
           image: ljhoon597/aws9:shop
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -24,10 +33,9 @@ metadata:
   namespace: aws9c
 spec:
   ports:
-  - name: aws9-port-shop
-    port: 80       # cluster-ip 의 포트 번호(type 없으면 기본은 cluster-ip )
-    protocol: TCP
-    targetPort: 80    # 컨테이너의 포트 
+    - name: aws9-port-shop
+      port: 80
+      protocol: TCP
+      targetPort: 80
   selector:
-    color: blue 
-
+    color: blue
