@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: aws9ctn-shop
-          image: hub.aws9.pri/aws9/yello
+          image: hub.aws9.pri/aws9/shop
           ports:
             - containerPort: 80
           resources:
